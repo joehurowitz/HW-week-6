@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+  	<meta charset="UTF-8">	
+
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<title></title>
+	</head>
+	
+	<body>
+  
+<div class="container">
+<div class="row">
+  <div class="col-md-12" id="animalButtons">
+	<!-- buttons-->
+	
+	</div>
+  </div>
+
+	<form id="animal-form">
+		<label for animal-input>Add an Animal !</label>
+		<input type="text" id="animal-input">
+
+		<input type="submit" value="Submit" id="add-animal" >
+	</form>
+
+<!-- Pics of animal-->
+<div class= "row" id="animals"></div>
+
+</div>
+<!--
+	<script src="https://code.jquery.com/jquery.js"></script>
+		<script type="text/javascript">
+			
+
+		var animals = ["Cat","Dog","Horse"];
+
+		function displayAnimalInfo(){
+
+		var animal = $(this).attr("data-name");
+		//console.log(animal);
+
+		var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+        animal+ "&api_key=dc6zaTOxFJmzC&limit=10";
+	
+
+			
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).done(function(response){
+      		console.log(response);
+
+      	
+        for(var i=0; i<response.data.length; i++){
+		
+      	var animalDiv = $("<div class='animal'>");
+		  var animalImage = $("<img>");
+      	animalDiv.html("<p> Rating " +response.data[i].rating + "</p>");
+
+     
+       animalImage.attr("src",response.data[i].images.original.url);
+      
+      	animalDiv.append(animalImage);
+      	$("#animals").prepend(animalDiv);
+    }
+      });
+
+}
+      function renderButtons() {
+ 
+        
+         $("#animalButtons").empty();
+ 
+         
+         for (var i = 0; i < animals.length; i++) {
+ 
+           // Then dynamicaly generating buttons for each item in the array
+           // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+           var a = $("<button>");
+           // Adding a class of movie to our button
+           a.addClass("animal");
+           // Adding a data-attribute
+           a.attr("data-name", animals[i]);
+           // Providing the initial button text
+           a.text(animals[i]);
+           // Adding the button to the buttons-view div
+           $("#animalButtons").append(a);
+         }
+       }
+
+       $("#add-animal").on("click", function(event) {
+         event.preventDefault();
+         
+         animal = $("#animal-input").val().trim();
+ 
+       
+         animals.push(animal);
+ 		//console.log(animals);
+         renderButtons();
+        // displayAnimalInfo();
+       });
+
+	 $(document).on("click", ".animal", displayAnimalInfo);
+ 
+       // Calling the renderButtons function to display the intial buttons
+       renderButtons();
+       
+
+		</script>-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/javascript/ajax.js"></script>
+	</body>
+</html>
