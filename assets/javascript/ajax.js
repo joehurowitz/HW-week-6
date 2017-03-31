@@ -19,14 +19,15 @@ var animals = ["Cat","Dog","Horse"];
       	
         for(var i=0; i<response.data.length; i++){
 		
-      	var animalDiv = $("<div class='animal'>");
-		  var animalImage = $("<img>");
-      	animalDiv.html("<p> Rating " +response.data[i].rating + "</p>");
+      	var animalDiv = $("<div class='animalDiv'>");
 
-     
-       animalImage.attr("src",response.data[i].images.original.url);
-      
-      	animalDiv.append(animalImage);
+        var animalImage = $("<img>");
+      	animalDiv.html("<p> Rating " +response.data[i].rating + "</p>");
+        animalImage.attr("src",response.data[i].images.original_still.url);
+        animalImage.attr("data-still",response.data[i].images.original_still.url);
+        animalImage.attr("data-animate",response.data[i].images.original.url);     
+      	animalImage.attr("data-state","still");
+        animalDiv.append(animalImage);
       	$("#animals").prepend(animalDiv);
     }
       });
@@ -54,6 +55,19 @@ var animals = ["Cat","Dog","Horse"];
          }
        }
 
+       function changeState(gif){
+        var state = gif.attr("data-state");
+        if(state === "still"){
+          gif.attr("src",gif.attr("data-animate"));
+          gif.attr("data-state","animate");
+                             }
+        else {
+          gif.attr("src", gif.attr("data-still"));
+          gif.attr("data-state", "still");
+              }
+       }
+
+
        $("#add-animal").on("click", function(event) {
          event.preventDefault();
          
@@ -61,10 +75,17 @@ var animals = ["Cat","Dog","Horse"];
  
        
          animals.push(animal);
- 		//console.log(animals);
+ 	
          renderButtons();
-        // displayAnimalInfo();
+      
        });
+
+
+       $("#animals").on("click",'img',function(){
+          changeState($(this));
+       });
+
+      
 
 	 $(document).on("click", ".animal", displayAnimalInfo);
  
